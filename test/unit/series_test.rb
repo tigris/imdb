@@ -66,6 +66,10 @@ class SeriesTest < Test::Unit::TestCase
       assert_equal 89, SERIES.rating
     end
 
+    should 'have a runtime' do
+      assert_equal 22, SERIES.runtime
+    end
+
     should 'have a poster_url' do
       assert_equal 'http://ia.media-imdb.com/images/M/MV5BODI3Nzc5NDA0NF5BMl5BanBnXkFtZTcwOTU0MzUyMQ@@._V1._SX100_SY134_.jpg', SERIES.poster_url
     end

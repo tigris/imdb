@@ -71,6 +71,10 @@ class EpisodeTest < Test::Unit::TestCase
       assert_equal 2, EPISODE.episode
     end
 
+    should 'have a runtime' do
+      assert_equal 22, EPISODE.runtime
+    end
+
     should 'be a friends episode' do
       assert_kind_of Imdb::Series, EPISODE.series
       assert_equal '"Friends"', EPISODE.series.title

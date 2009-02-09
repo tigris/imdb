@@ -28,7 +28,7 @@ module Imdb
   end
 
   class Base
-    attr_accessor :title, :rating, :genres, :poster_url
+    attr_accessor :title, :rating, :genres, :poster_url, :runtime
 
     def initialize(id, page)
       @id         = id
@@ -40,6 +40,7 @@ module Imdb
       @cast       = parse_cast
       @keywords   = parse_keywords
       @poster_url = parse_poster_url
+      @runtime    = parse_runtime
     end
 
     def to_s
@@ -126,6 +127,11 @@ module Imdb
         plot.sub!(/^Tagline:/, '')
         plot.sub!(/more$/, '')
         plot.strip
+      end
+
+      def parse_runtime
+        container = info_div('Runtime')
+        container.inner_text.match(/(\d+) min/)[1].to_i rescue nil
       end
 
       def parse_release_date

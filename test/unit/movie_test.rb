@@ -68,6 +68,10 @@ class MovieTest < Test::Unit::TestCase
       assert_equal 65, MOVIE.rating
     end
 
+    should 'have a runtime' do
+      assert_equal 110, MOVIE.runtime
+    end
+
     should 'have a poster_url' do
       assert_equal 'http://ia.media-imdb.com/images/M/MV5BMjE0MDE1MTQ5MF5BMl5BanBnXkFtZTcwNzYwOTA4MQ@@._V1._SX100_SY140_.jpg', MOVIE.poster_url
     end
