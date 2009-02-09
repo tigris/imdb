@@ -63,6 +63,14 @@ class EpisodeTest < Test::Unit::TestCase
       assert_equal '1996/09/26', EPISODE.aired_date.strftime('%Y/%m/%d')
     end
 
+    should 'be part of season 3' do
+      assert_equal 3, EPISODE.season
+    end
+
+    should 'be episode number 2' do
+      assert_equal 2, EPISODE.episode
+    end
+
     should 'be a friends episode' do
       assert_kind_of Imdb::Series, EPISODE.series
       assert_equal '"Friends"', EPISODE.series.title
