@@ -1,0 +1,32 @@
+== Usage
+
+A simple ruby library to scrape IMDB
+
+require 'Imdb'
+
+movie = Imdb.find(1099212)
+
+puts "IMDB ID: #{movie.id}"
+puts "Title: #{movie.title}"
+puts "Rating: #{movie.rating}"
+puts "Release Date: #{movie.release_date}"
+puts "Tagline: #{movie.tagline}"
+puts "Plot: #{movie.plot}"
+movie.directors.each do |director|
+        puts "Director: #{director.name}"
+end
+movie.writers.each do |writer|
+        puts "Writer: #{writer.name}"
+end
+movie.genres.each do |genre|
+        puts "Genre: #{genre}"
+end
+puts "Poster URL: #{movie.poster_url}"
+
+Thanks to 'maddox' for the jump start via http://github.com/maddox
+
+== Development
+
+The tests require thoughtbot-shoulda to run.
+
+Needs some gem specs and RDOC, i'm lazy.
