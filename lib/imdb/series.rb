@@ -15,6 +15,8 @@ module Imdb
     def creators;     @creators     ||= parse_creators;     end
     def seasons;      @seasons      ||= parse_seasons;      end
 
+    #TODO: episodes(season = nil) - to return array of Imdb::Episode objects for that season (nil for all)
+
     protected
       def parse_cast
         cast = super
