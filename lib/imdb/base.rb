@@ -106,6 +106,7 @@ module Imdb
         plot.sub!(/\s*\|\s*add synopsis$/, '')
         plot.sub!(/\s*\|\s*full synopsis$/, '')
         plot.sub!(/full summary$/, '')
+        plot.sub!(/\(?more\)?$/, '')
         plot.strip
       end
 
