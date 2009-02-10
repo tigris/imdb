@@ -1,21 +1,19 @@
 module Imdb
   class Series < Base
-    attr_accessor :creators, :tagline, :seasons, :year, :release_date
-
     def initialize(id, page)
       if page.is_a? Hpricot
         super(id, page)
-        @year         = parse_year
-        @tagline      = parse_tagline
-        @creators     = parse_creators
-        @seasons      = parse_seasons
-        @release_date = parse_release_date
       else
-        # TODO: how to convert this to a fully parsed object when required.
         @id    = id
         @title = page
       end
     end
+
+    def year;         @year         ||= parse_year;         end
+    def tagline;      @tagline      ||= parse_tagline;      end
+    def release_date; @release_date ||= parse_release_date; end
+    def creators;     @creators     ||= parse_creators;     end
+    def seasons;      @seasons      ||= parse_seasons;      end
 
     protected
       def parse_cast

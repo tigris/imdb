@@ -2,20 +2,13 @@ require 'date'
 
 module Imdb
   class Episode < Base
-    attr_accessor :directors, :writers, :series, :aired_date, :episode, :season
 
-    def initialize(id, page)
-      super(id, page)
-
-      @directors  = parse_directors
-      @writers    = parse_writers
-      @series     = parse_series
-      @aired_date = parse_aired_date
-      @season     = parse_season
-      @episode    = parse_episode
-
-      self
-    end
+    def directors;  @directors  ||= parse_directors;  end
+    def writers;    @writers    ||= parse_writers;    end
+    def series;     @series     ||= parse_series;     end
+    def aired_date; @aired_date ||= parse_aired_date; end
+    def season;     @season     ||= parse_season;     end
+    def episode;    @episode    ||= parse_episode;    end
 
     protected
       def parse_title

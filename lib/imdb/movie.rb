@@ -2,18 +2,10 @@ require 'date'
 
 module Imdb
   class Movie < Base
-    attr_accessor :year, :writers, :directors, :tagline, :release_date
-
-    def initialize(id, page)
-      super(id, page)
-
-      @year         = parse_year
-      @writers      = parse_writers
-      @directors    = parse_directors
-      @tagline      = parse_tagline
-      @release_date = parse_release_date
-
-      self
-    end
+    def year;         @year         ||= parse_year;         end
+    def writers;      @writers      ||= parse_writers;      end
+    def release_date; @release_date ||= parse_release_date; end
+    def directors;    @directors    ||= parse_directors;    end
+    def tagline;      @tagline      ||= parse_tagline;      end
   end
 end

@@ -16,55 +16,47 @@
 
 module Imdb
   def self.find(id)
-    @page = Hpricot(open("http://www.imdb.com/title/tt#{id}"))
-    headers = (@page / 'h5').to_a
+    page = Hpricot(open("http://www.imdb.com/title/tt#{id}"))
+    headers = (page / 'h5').to_a
     if headers.any?{|h| h.inner_text == 'TV Series:'}
-      Episode.new(id, @page)
+      Episode.new(id, page)
     elsif headers.any?{|h| h.inner_text == 'Seasons:'}
-      Series.new(id, @page)
+      Series.new(id, page)
     else
-      Movie.new(id, @page)
+      Movie.new(id, page)
     end
   end
 
   class Base
-    attr_accessor :title, :rating, :genres, :poster_url, :runtime
+    attr_accessor :id
 
     def initialize(id, page)
-      @id         = id
-      @page       = page
-      @title      = parse_title
-      @genres     = parse_genres
-      @plot       = parse_plot
-      @rating     = parse_rating
-      @cast       = parse_cast
-      @keywords   = parse_keywords
-      @poster_url = parse_poster_url
-      @runtime    = parse_runtime
+      @id   = id
+      @page = page
     end
 
     def to_s
       title
     end
 
-    def cast(full = false)
-      # TODO: implement FULL which will hit /title/tt#{id}/cast
-      @cast
-    end
+    def title;      @title      ||= parse_title;      end
+    def rating;     @rating     ||= parse_rating;     end
+    def genres;     @genres     ||= parse_genres;     end
+    def poster_url; @poster_url ||= parse_poster_url; end
+    def runtime;    @runtime    ||= parse_runtime;    end
 
-    def plot(full = false)
-      # TODO: implement FULL which will hit /title/tt#{id}/plot
-      @plot
-    end
+    # TODO: implement FULL which will hit /title/tt#{id}/cast
+    def cast(full = false); @cast ||= parse_cast; end
 
-    def keywords(full = false)
-      # TODO: implement FULL which will hit /title/tt#{id}/plot_keywords
-      @keywords
-    end
+    # TODO: implement FULL which will hit /title/tt#{id}/plot
+    def plot(full = false); @plot ||= parse_plot; end
+
+    # TODO: implement FULL which will hit /title/tt#{id}/plot_keywords
+    def keywords(full = false); @keywords ||= parse_keywords; end
 
     protected
       def page
-        @page
+        @page ||= Hpricot(open("http://www.imdb.com/title/tt#{id}"))
       end
 
       def parse_title
@@ -145,7 +137,7 @@ module Imdb
       end
 
       def info_div(heading)
-        (page/'div.info').find_all{|i| (i/'h5').inner_text =~ /^#{heading}:/}.first
+        (page/'div.info').find_all{|i| (i/'h5').inner_text =~ /^#{heading}\b/}.first
       end
   end
 end
