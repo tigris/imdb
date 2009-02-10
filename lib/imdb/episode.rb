@@ -31,7 +31,7 @@ module Imdb
 
       def parse_series
         container = (info_div('TV Series') / 'a').first
-        id = container[:href].sub(/^.+tt(\d+).*$/, '').to_i
+        id = container[:href].sub(/^.+tt(\d+).*$/, '\1').to_i
         title = container.inner_html.sub(/^&#34;(.+)&#34;.*$/, '"\1"')
         Series.new(id, title)
       end

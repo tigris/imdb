@@ -78,6 +78,7 @@ class EpisodeTest < Test::Unit::TestCase
     should 'be a friends episode' do
       assert_kind_of Imdb::Series, EPISODE.series
       assert_equal '"Friends"', EPISODE.series.title
+      assert_not_equal 0, EPISODE.series.id
     end
   end
 end
